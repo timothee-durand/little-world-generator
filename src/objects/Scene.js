@@ -14,6 +14,7 @@ import Earth from "./Earth/Earth";
 import Tree from "./Tree/Tree";
 import helpers from "./helpers";
 import params from "../params";
+import Cloud from "./Cloud/Cloud";
 
 
 
@@ -41,12 +42,24 @@ export default class SeedScene extends Group {
   init() {
     this.children = [];
     const earth = new Earth(10, "#471717");
-    const tree = new Tree(10, 5)
-    tree.setWorldPosition(earth, 10)
+    const tree = new Tree(4, 1)
+    tree.setWorldPosition(earth, 0)
 
     const lights = new BasicLights();
     console.log(earth, tree)
 
+    const numberOfCloud = helpers.getRandBtw(params.cloud.numberofCloud.min, params.cloud.numberofCloud.max)
+    for (let i = 0; i < numberOfCloud; i++) {
+      const cloud = new Cloud("#ffffff")
+      cloud.setWorldPosition(earth, 10)
+      this.add(cloud)
+    }
+
+    this.add(earth, lights, tree);
+    //this.setHelper()
+  }
+
+  setHelper() {
     const geometry = new SphereGeometry( 1, 1, 1 );
     const material = new MeshBasicMaterial( {color: 0xffff00, side: DoubleSide, wireframe:params.wireframe} );
     const plane = new Mesh( geometry, material );
@@ -64,7 +77,5 @@ export default class SeedScene extends Group {
     y.material.color = new Color(0, 0, 255)
     z.rotation.z = Math.PI / 2
     this.add(x, y , z)
-
-    this.add(earth, lights, tree);
   }
 }

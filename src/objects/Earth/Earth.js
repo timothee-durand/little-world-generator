@@ -21,7 +21,7 @@ export default class Earth extends Group {
     const material = new MeshPhongMaterial( {color: color, shininess:0, reflectivity:0,wireframe:params.wireframe} );
     this.earth = new Mesh( geometry, material );
 
-    helpers.addNumberToGUI(this.earth.position, "y", -100, 100)
+    // helpers.addNumberToGUI(this.earth.position, "y", -100, 100)
 
     this.add(this.earth)
   }
